@@ -39,6 +39,7 @@ public class UserController {
 //        System.out.println("log======table 'user' all records:"+userList.size());
         mv.addObject("userList", userList);
         mv.setViewName("user/list");
+//        model.addAttribute("haha", "hahahah");
         return mv;
     }
     
