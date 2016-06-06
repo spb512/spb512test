@@ -65,6 +65,12 @@
 	    <artifactId>shiro-core</artifactId>
 	    <version>1.2.5</version>
 	</dependency>
+	<!-- http://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
+	<dependency>
+	    <groupId>org.apache.shiro</groupId>
+	    <artifactId>shiro-spring</artifactId>
+	    <version>1.2.5</version>
+	</dependency>
 	
 </dependencies>
 </project>
