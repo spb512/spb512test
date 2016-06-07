@@ -7,8 +7,9 @@ import com.spb.demo.dao.common.AbstractHibernateDao;
 import com.spb.demo.model.User;
 
 @Repository("usersDao")
-public class UserDao extends AbstractHibernateDao<User> implements IUserDao{
-	public UserDao(){
-		super();setClazz(User.class);
+public class UserDaoImpl extends AbstractHibernateDao<User> implements IUserDao{
+	public UserDaoImpl(){
+		super();
+		setClazz(User.class);
 	}
 }

@@ -1,40 +1,26 @@
 package com.spb.demo.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.DisabledAccountException;
-import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.apache.shiro.authc.ExpiredCredentialsException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.UnauthorizedException;
-import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.spb.demo.model.SUser;
+import com.spb.demo.service.SUserService;
 
 @Controller
 @RequestMapping("/home")
 public class HomeController {
-	/**
-	 * 进入登录页面
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("/login")
-	public String loginMathod(Model model ){
-		return "shiroLogin";
-	}
-	@RequestMapping("/logins")
-	public String login(@RequestParam(value="name")String name,String password){
-		Subject user = SecurityUtils.getSubject();
-		return "";
-	}
-
+	@Resource(name="sUserService")
+    private SUserService sUserService;
 	/**
 	 * 实际的登录代码
 	 * 如果登录成功，跳转至首页；登录失败，则将失败信息反馈对用户
@@ -43,7 +29,7 @@ public class HomeController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/dologin")
+	/*@RequestMapping(value = "/dologin")
 	public String doLogin(HttpServletRequest request, Model model) {
 		String msg = "";
 		String userName = request.getParameter("userName");
@@ -90,5 +76,40 @@ public class HomeController {
 			System.out.println(msg);
 		}
 		return "login";
-	}
+	}*/
+	@RequestMapping(value="/login",method=RequestMethod.GET)  
+    public String loginForm(Model model){  
+        model.addAttribute("sUser", new SUser());  
+        SUser sUser=sUserService.findByName("tom"); 
+        System.out.println(sUser.getPassword()+"&&&&&&&&&&&&&&&&&&");
+        return "/login";  
+    }  
+      
+    @RequestMapping(value="/login",method=RequestMethod.POST)  
+    public String login(@Valid SUser sUser,BindingResult bindingResult,RedirectAttributes redirectAttributes){  
+        try {  
+            if(bindingResult.hasErrors()){  
+                return "/login";  
+            }  
+            //使用权限工具进行用户登录，登录成功后跳到shiro配置的successUrl中，与下面的return没什么关系！  
+            SecurityUtils.getSubject().login(new UsernamePasswordToken(sUser.getUserName(), sUser.getPassword()));  
+            return "redirect:/user/list";  
+        } catch (AuthenticationException e) {  
+            redirectAttributes.addFlashAttribute("message","用户名或密码错误");  
+            return "redirect:/login";  
+        }  
+    }  
+      
+    @RequestMapping(value="/logout",method=RequestMethod.GET)    
+    public String logout(RedirectAttributes redirectAttributes ){   
+        //使用权限管理工具进行用户的退出，跳出登录，给出提示信息  
+        SecurityUtils.getSubject().logout();    
+        redirectAttributes.addFlashAttribute("message", "您已安全退出");    
+        return "redirect:/login";  
+    }   
+      
+    @RequestMapping("/403")  
+    public String unauthorizedRole(){  
+        return "/403";  
+    }  
 }

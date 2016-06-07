@@ -71,6 +71,12 @@
 	    <artifactId>shiro-spring</artifactId>
 	    <version>1.2.5</version>
 	</dependency>
+	<!-- http://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-validator</artifactId>
+	    <version>5.2.4.Final</version>
+	</dependency>
 	
 </dependencies>
 </project>

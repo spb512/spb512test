@@ -12,12 +12,12 @@ import com.spb.demo.service.common.AbstractService;
 
 
 @Service("userService")
-public class UserService extends AbstractService<User> implements IUserService {
+public class UserServiceImpl extends AbstractService<User> implements IUserService {
 
     @Resource(name="usersDao")
     private IUserDao dao;
     
-    public UserService() {
+    public UserServiceImpl() {
         super();
     }
 

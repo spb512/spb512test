@@ -58,5 +58,12 @@
         <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+    <session-config>
+    	<session-timeout>15</session-timeout>
+    	<!-- 打开会有;jsessionid=d776nce5ge9o1hvu7rafb2vb9出现 -->
+        <!-- <cookie-config>
+	    	<http-only>true</http-only>
+	    	<secure>true</secure>
+    	</cookie-config> -->
+    </session-config>
 </web-app>
