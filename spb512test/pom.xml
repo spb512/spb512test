@@ -59,13 +59,13 @@
 	    <artifactId>spring-orm</artifactId>
 	    <version>5.3.23</version>
 	</dependency>
-	<!-- http://mvnrepository.com/artifact/org.apache.shiro/shiro-core -->
-	<dependency>
-	    <groupId>org.apache.shiro</groupId>
-	    <artifactId>shiro-core</artifactId>
-	    <version>1.9.1</version>
-	</dependency>
-	<!-- http://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
+	  <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-core -->
+	  <dependency>
+		  <groupId>org.apache.shiro</groupId>
+		  <artifactId>shiro-core</artifactId>
+		  <version>1.10.0</version>
+	  </dependency>
+	  <!-- http://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
 	<dependency>
 	    <groupId>org.apache.shiro</groupId>
 	    <artifactId>shiro-spring</artifactId>
